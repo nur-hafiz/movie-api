@@ -3,16 +3,36 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { defineComponent, reactive, ref, toRefs } from "vue";
+import { defineComponent, ref } from "vue";
+import Movie from "@/types/Movie";
 
 export default defineComponent({
   setup() {
-    const state = reactive({});
+    let list = ref<Movie[]>([]);
 
     return {
-      ...toRefs(state),
+      list,
     };
+  },
+
+  methods: {
+    getMovies(query: string, page: number) {
+      fetch(
+        `https://jsonmock.hackerrank.com/api/movies/search/?Title=${query}&page=${page}`
+      )
+        .then((res) => {
+          res.json().then((data) => {
+            this.list = data.data as Movie[];
+          });
+        })
+        .catch((err) => {
+          console.log("Fetch Error :-S", err);
+        });
+    },
+  },
+
+  mounted() {
+    this.getMovies("", 1);
   },
 });
 </script>
