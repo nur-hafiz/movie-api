@@ -1,12 +1,16 @@
 <template>
-  <div></div>
+  <div>
+    <MovieList :movies="list" />
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
+import MovieList from "@/components/MovieList.vue";
 import Movie from "@/types/Movie";
 
 export default defineComponent({
+  components: { MovieList },
   setup() {
     let list = ref<Movie[]>([]);
 
