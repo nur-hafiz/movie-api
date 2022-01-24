@@ -3,7 +3,12 @@
     <input @input="getMovies(1)" v-model="query" type="text" />
     <button @click="showFavourites">Favourites</button>
     <MovieList :movies="list" :favourites="favourites" />
-    <Pagination @goToPage="getMovies" :page="page" :maximum="lastPage" />
+    <Pagination
+      v-if="!showingFavourites"
+      @goToPage="getMovies"
+      :page="page"
+      :maximum="lastPage"
+    />
     {{ query }}
     {{ page }}
   </div>
@@ -24,6 +29,7 @@ export default defineComponent({
     let page = ref<number>(1);
     let lastPage = ref<number>(1);
     let favourites = ref(new Favourites());
+    let showingFavourites = ref<boolean>(false);
 
     return {
       list,
@@ -31,11 +37,13 @@ export default defineComponent({
       page,
       lastPage,
       favourites,
+      showingFavourites,
     };
   },
 
   methods: {
     showFavourites() {
+      this.showingFavourites = true;
       this.list = this.favourites.getMovies();
     },
 
