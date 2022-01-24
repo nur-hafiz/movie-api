@@ -1,6 +1,8 @@
 <template>
   <div>
+    <input @input="getMovies(1)" v-model="query" type="text" />
     <MovieList :movies="list" />
+    {{ query }}
   </div>
 </template>
 
@@ -13,16 +15,18 @@ export default defineComponent({
   components: { MovieList },
   setup() {
     let list = ref<Movie[]>([]);
+    let query = ref<string>("");
 
     return {
       list,
+      query,
     };
   },
 
   methods: {
-    getMovies(query: string, page: number) {
+    getMovies(page: number) {
       fetch(
-        `https://jsonmock.hackerrank.com/api/movies/search/?Title=${query}&page=${page}`
+        `https://jsonmock.hackerrank.com/api/movies/search/?Title=${this.query}&page=${page}`
       )
         .then((res) => {
           res.json().then((data) => {
@@ -36,7 +40,7 @@ export default defineComponent({
   },
 
   mounted() {
-    this.getMovies("", 1);
+    this.getMovies(1);
   },
 });
 </script>
