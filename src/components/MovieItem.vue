@@ -2,6 +2,7 @@
   <div>
     {{ movie.Title }}
     Release Year: {{ movie.Year }}
+    <button @click="toggleFavourited">{{ isFavourited }}</button>
   </div>
 </template>
 
@@ -20,6 +21,16 @@ export default defineComponent({
     favourites: {
       required: true,
       type: Object as () => Favourites,
+    },
+  },
+
+  methods: {
+    toggleFavourited() {
+      if (this.isFavourited) {
+        this.favourites.removeMovie(this.movie);
+      } else {
+        this.favourites.addMovie(this.movie);
+      }
     },
   },
 
