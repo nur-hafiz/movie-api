@@ -2,24 +2,32 @@
   <div>
     <input @input="getMovies(1)" v-model="query" type="text" />
     <MovieList :movies="list" />
+    <Pagination :page="page" :maximum="lastPage" />
     {{ query }}
+    {{ page }}
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import MovieList from "@/components/MovieList.vue";
+import Pagination from "@/components/Pagination.vue";
+
 import Movie from "@/types/Movie";
 
 export default defineComponent({
-  components: { MovieList },
+  components: { MovieList, Pagination },
   setup() {
     let list = ref<Movie[]>([]);
     let query = ref<string>("");
+    let page = ref<number>(1);
+    let lastPage = ref<number>(1);
 
     return {
       list,
       query,
+      page,
+      lastPage,
     };
   },
 
