@@ -1,7 +1,7 @@
 <template>
   <div>
     <input @input="getMovies(1)" v-model="query" type="text" />
-    <MovieList :movies="list" />
+    <MovieList :movies="list" :favourites="favourites" />
     <Pagination @goToPage="getMovies" :page="page" :maximum="lastPage" />
     {{ query }}
     {{ page }}
@@ -12,8 +12,8 @@
 import { defineComponent, ref } from "vue";
 import MovieList from "@/components/MovieList.vue";
 import Pagination from "@/components/Pagination.vue";
-
 import Movie from "@/types/Movie";
+import Favourites from "@/store/Favourites";
 
 export default defineComponent({
   components: { MovieList, Pagination },
@@ -22,12 +22,14 @@ export default defineComponent({
     let query = ref<string>("");
     let page = ref<number>(1);
     let lastPage = ref<number>(1);
+    let favourites = ref(new Favourites());
 
     return {
       list,
       query,
       page,
       lastPage,
+      favourites,
     };
   },
 
