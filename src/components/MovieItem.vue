@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { computed, defineComponent } from "vue";
 import Movie from "@/types/Movie";
 import Favourites from "@/store/Favourites";
 
@@ -24,6 +24,16 @@ export default defineComponent({
     },
   },
 
+  setup(props) {
+    const isFavourited = computed<boolean>(() =>
+      props.favourites.hasMovie(props.movie)
+    );
+
+    return {
+      isFavourited,
+    };
+  },
+
   methods: {
     toggleFavourited() {
       if (this.isFavourited) {
@@ -31,12 +41,6 @@ export default defineComponent({
       } else {
         this.favourites.addMovie(this.movie);
       }
-    },
-  },
-
-  computed: {
-    isFavourited() {
-      return this.favourites.hasMovie(this.movie);
     },
   },
 });
