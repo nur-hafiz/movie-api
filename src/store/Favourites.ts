@@ -7,6 +7,10 @@ class Favourites {
     this.list = [];
   }
 
+  public getMovies(): Movie[] {
+    return this.list;
+  }
+
   public hasMovie(movie: Movie): boolean {
     return this.list.some((item) => item.imdbID === movie.imdbID);
   }
