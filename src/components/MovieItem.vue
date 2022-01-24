@@ -8,6 +8,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import Movie from "@/types/Movie";
+import Favourites from "@/store/Favourites";
 
 export default defineComponent({
   props: {
@@ -15,6 +16,12 @@ export default defineComponent({
       required: true,
       type: Object as () => Movie,
     },
+
+    favourites: {
+      required: true,
+      type: Object as () => Favourites,
+    },
+  },
   },
 });
 </script>
