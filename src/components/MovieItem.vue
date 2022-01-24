@@ -22,6 +22,11 @@ export default defineComponent({
       type: Object as () => Favourites,
     },
   },
+
+  computed: {
+    isFavourited() {
+      return this.favourites.hasMovie(this.movie);
+    },
   },
 });
 </script>
