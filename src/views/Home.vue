@@ -1,6 +1,7 @@
 <template>
   <div>
     <input @input="getMovies(1)" v-model="query" type="text" />
+    <button @click="showFavourites">Favourites</button>
     <MovieList :movies="list" :favourites="favourites" />
     <Pagination @goToPage="getMovies" :page="page" :maximum="lastPage" />
     {{ query }}
@@ -34,7 +35,12 @@ export default defineComponent({
   },
 
   methods: {
+    showFavourites() {
+      this.list = this.favourites.getMovies();
+    },
+
     getMovies(page: number) {
+      this.showingFavourites = false;
       this.page = page;
 
       fetch(
