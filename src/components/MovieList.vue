@@ -1,11 +1,9 @@
 <template>
-  <div>
-    <ul>
-      <li v-for="movie in movies" :key="movie.imdbID">
-        <MovieItem :movie="movie" :favourites="favourites" />
-      </li>
-    </ul>
-  </div>
+  <ul class="list">
+    <li class="list__item" v-for="movie in movies" :key="movie.imdbID">
+      <MovieItem :movie="movie" :favourites="favourites" />
+    </li>
+  </ul>
 </template>
 
 <script lang="ts">
@@ -30,3 +28,25 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+.list {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+}
+
+.list__item {
+  width: 45%;
+  margin: calc(10% / 4);
+}
+
+@media only screen and (min-width: 992px) {
+  .list__item {
+    width: 30%;
+    margin: calc(10% / 6);
+  }
+}
+</style>
