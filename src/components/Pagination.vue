@@ -25,7 +25,9 @@ export default defineComponent({
 
   methods: {
     goToPage(page: number) {
-      this.$emit("goToPage", page);
+        if (page < 1 || page > this.maximum)
+            return
+        this.$emit("goToPage", page);
     },
   },
 });
