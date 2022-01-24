@@ -1,10 +1,10 @@
 <template>
   <ul>
-    <li>First</li>
-    <li>Previous</li>
+    <li @click="goToPage(1)">First</li>
+    <li @click="goToPage(page - 1)">Previous</li>
     <li>{{ page }}</li>
-    <li>Next</li>
-    <li>Last</li>
+    <li @click="goToPage(page + 1)">Next</li>
+    <li @click="goToPage(maximum)">Last</li>
   </ul>
 </template>
 
@@ -24,16 +24,8 @@ export default defineComponent({
   },
 
   methods: {
-    jumpToFirst() {
-      this.goToPage(1);
-    },
-
     goToPage(page: number) {
       this.$emit("goToPage", page);
-    },
-
-    jumpToLast() {
-      this.goToPage(this.maximum);
     },
   },
 });
