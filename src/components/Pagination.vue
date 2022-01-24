@@ -1,5 +1,8 @@
 <template>
   <ul>
+    {{
+      maximum
+    }}
     <li @click="goToPage(1)">First</li>
     <li @click="goToPage(page - 1)">Previous</li>
     <li>{{ page }}</li>
@@ -25,9 +28,8 @@ export default defineComponent({
 
   methods: {
     goToPage(page: number) {
-        if (page < 1 || page > this.maximum)
-            return
-        this.$emit("goToPage", page);
+      if (page < 1 || page > this.maximum) return;
+      this.$emit("goToPage", page);
     },
   },
 });

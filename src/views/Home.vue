@@ -39,6 +39,7 @@ export default defineComponent({
         .then((res) => {
           res.json().then((data) => {
             this.list = data.data as Movie[];
+            this.lastPage = data.total_pages;
           });
         })
         .catch((err) => {
