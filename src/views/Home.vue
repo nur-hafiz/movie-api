@@ -2,7 +2,7 @@
   <div>
     <input @input="getMovies(1)" v-model="query" type="text" />
     <MovieList :movies="list" />
-    <Pagination :page="page" :maximum="lastPage" />
+    <Pagination @goToPage="getMovies" :page="page" :maximum="lastPage" />
     {{ query }}
     {{ page }}
   </div>
@@ -33,6 +33,8 @@ export default defineComponent({
 
   methods: {
     getMovies(page: number) {
+      this.page = page;
+
       fetch(
         `https://jsonmock.hackerrank.com/api/movies/search/?Title=${this.query}&page=${page}`
       )
