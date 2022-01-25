@@ -9,8 +9,6 @@
       :page="page"
       :maximum="lastPage"
     />
-    {{ query }}
-    {{ page }}
   </div>
 </template>
 
