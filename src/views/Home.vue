@@ -1,10 +1,23 @@
 <template>
   <div>
-    <input @input="getMovies(1)" v-model="query" type="text" />
-    <button @click="showFavourites">Favourites</button>
+    <h1>Movie Api</h1>
+    <div class="controls">
+      <input
+        class="searchbar"
+        v-show="!showingFavourites"
+        @input="getMovies(1)"
+        v-model="query"
+        type="text"
+      />
+      <button
+        class="list-toggle"
+        :class="[showingFavourites ? 'magnifying-glass' : 'star']"
+        @click="toggleShowFavourites"
+      ></button>
+    </div>
     <MovieList :movies="list" :favourites="favourites" />
     <Pagination
-      v-if="!showingFavourites"
+      v-show="!showingFavourites"
       @goToPage="getMovies"
       :page="page"
       :maximum="lastPage"
@@ -40,13 +53,16 @@ export default defineComponent({
   },
 
   methods: {
-    showFavourites() {
-      this.showingFavourites = true;
-      this.list = this.favourites.getMovies();
+    toggleShowFavourites() {
+      this.showingFavourites = !this.showingFavourites;
+      if (this.showingFavourites) {
+        this.list = this.favourites.getMovies();
+      } else {
+        this.getMovies(this.page);
+      }
     },
 
     getMovies(page: number) {
-      this.showingFavourites = false;
       this.page = page;
 
       fetch(
@@ -69,3 +85,48 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  padding: 20px;
+}
+
+.searchbar {
+  border-radius: 4px;
+  height: 20px;
+  padding: 5px;
+}
+
+.list-toggle {
+  display: block;
+  height: 30px;
+  width: 30px;
+  outline: none;
+  border: 2px solid black;
+  background-size: contain;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.list-toggle:hover {
+  cursor: pointer;
+  background-color: #ff5b64;
+}
+
+.magnifying-glass {
+  background-image: url("~@/assets/magnify.png");
+}
+
+.star {
+  background-image: url("~@/assets/star-gray.png");
+}
+
+.star:hover {
+  background-image: url("~@/assets/star-yellow.png");
+}
+</style>

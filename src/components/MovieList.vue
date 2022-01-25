@@ -1,9 +1,11 @@
 <template>
-  <ul class="list">
+  <ul class="list" v-if="movies.length > 0">
     <li class="list__item" v-for="movie in movies" :key="movie.imdbID">
       <MovieItem :movie="movie" :favourites="favourites" />
     </li>
   </ul>
+
+  <p v-else>No movies found</p>
 </template>
 
 <script lang="ts">
@@ -48,5 +50,9 @@ export default defineComponent({
     width: 30%;
     margin: calc(10% / 6);
   }
+}
+
+p {
+  text-align: center;
 }
 </style>
