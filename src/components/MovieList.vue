@@ -19,7 +19,6 @@ export default defineComponent({
 
   props: {
     movies: {
-      required: true,
       type: Array as PropType<Movie[]>,
     },
 

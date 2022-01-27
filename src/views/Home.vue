@@ -3,6 +3,7 @@
     <h1>Movie Api</h1>
     <div class="controls">
       <input
+        data-test="searchbar"
         class="searchbar"
         v-show="!showingFavourites"
         @input="getMovies(1)"
@@ -10,6 +11,7 @@
         type="text"
       />
       <button
+        data-test="list-view-toggler"
         class="list-toggle"
         :class="[showingFavourites ? 'magnifying-glass' : 'star']"
         @click="toggleShowFavourites"
@@ -65,23 +67,33 @@ export default defineComponent({
     getMovies(page: number) {
       this.page = page;
 
-      fetch(
-        `https://jsonmock.hackerrank.com/api/movies/search/?Title=${this.query}&page=${page}`
-      )
-        .then((res) => {
-          res.json().then((data) => {
-            this.list = data.data as Movie[];
-            this.lastPage = data.total_pages;
+      try {
+        fetch(
+          `https://jsonmock.hackerrank.com/api/movies/search/?Title=${this.query}&page=${page}`
+        )
+          .then((res) => {
+            res.json().then((data) => {
+              this.list = data.data as Movie[];
+              this.lastPage = data.total_pages;
+            });
+          })
+          .catch((err) => {
+            // Usually some error handling
+            return null;
           });
-        })
-        .catch((err) => {
-          console.log("Fetch Error :-S", err);
-        });
+      } catch (err) {
+        // Usually some error handling
+        return null;
+      }
     },
   },
 
   mounted() {
     this.getMovies(1);
+
+    if ("Cypress" in window) {
+      (window as any).HomeComponent = this;
+    }
   },
 });
 </script>
