@@ -1,34 +1,14 @@
 # movie-api
 
-## Project setup
-```
-npm install
-```
+##  Intro
+Create a page that shows a list of movies called from an API.
+Requirement:
+1. Show 10 movies per page
+2. Provide pagination
+3. A searchbox to retrieve movies based on title
+4. To display imdbID, Title and Year of movie
+5. Ability to favourite movies
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Run your end-to-end tests
-```
-npm run test:e2e
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Additional comments
+It is my first time using Vue3, TypeScript and writing tests.
+Though I did read up about Vue3 and TS before, I essentially had to learn all these in 4 days.
